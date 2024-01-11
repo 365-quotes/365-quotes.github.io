@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="created by lodwick masete">
+<meta name="author" content="Lodwick Masete">
+<meta http-equiv="refresh" content="3;url=index.html">
+<head>
+<link rel="stylesheet" href="./awesome/css/all.min.css">
+
+
+<title id="tittle"></title>
+
+
+
+  <style>
+    .highlighted {
+      background-color: yellow;
+      border:10px solid red;
+    }
+  </style>
+
+
+
+
+
+
+
+<style type="text/css">
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+    25% { transform: rotate(72deg); }
+      50% { transform: rotate(144deg); }
+  75% { transform: rotate(216deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.animated {
+  animation: rotate .5s linear;
+}
+
+</style>
+
+<style type="text/css">
+
+.menu{
+background-color:pink;
+padding:10px;
+}
+.right-refresh{
+float:right;
+text-decoration:none;
+color:blue;
+}
+</style>
+
+
+
+
+<div class="menu">
+<i class="fa">365_Quotes </i>
+<i class="fa fa-blog"></i> |
+<i class="fa" ></i>
+<i class="fa">Refreshing</i>
+<a href="index.html" class="fa fa-refresh animated right-refresh"></a>
+</div>
+<div id="blog-posts"></div>
+
+</center>
+<script type="text/javascript">
+  const currentDate = new Date().toISOString().split('T')[0]; 
+  document.getElementById('tittle').textContent ='refreshing '+'for '+ currentDate;
+  document.getElementById('date-today').textContent = currentDate;
+</script>
+
+</html>

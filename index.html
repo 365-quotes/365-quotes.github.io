@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="created by lodwick masete">
+<meta name="author" content="Lodwick Masete">
+<head>
+<link rel="stylesheet" href="./awesome/css/all.min.css">
+
+
+<title id="tittle"></title>
+
+
+
+  <style>
+    .highlighted {
+      background-color: yellow;
+      border:10px solid red;
+    }
+  </style>
+
+
+
+
+
+
+
+<style type="text/css">
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+    25% { transform: rotate(72deg); }
+      50% { transform: rotate(144deg); }
+  75% { transform: rotate(216deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.animated {
+  animation: rotate .5s linear;
+}
+</style>
+
+<style type="text/css">
+/* Style for the modal */
+.modal {
+  display: none; /* Hide the modal by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.4); /* Overlay effect */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 60% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}</style>
+<style type="text/css">
+
+#blog-posts {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.blog-post{
+border: 1px solid #ccc;
+padding: 20px;
+margin-bottom: 20px;
+}
+
+.post-header {
+display: flex;
+align-items: center;
+margin-bottom: 10px;
+
+}
+
+.author-avatar {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+margin-right: 10px;
+}
+
+.author-name {
+font-size: 1.5em;
+}
+
+.post-content {
+margin-bottom: 15px;
+}
+
+.post-content p {
+margin-bottom: 10px;
+}
+
+.post-image {
+max-width: 100%;
+height: auto;
+display: block;
+margin-bottom: 10px;
+}
+
+.actions {
+margin-bottom: 15px;
+}
+
+.reaction-btn {
+padding: 8px 15px;
+margin-right: 10px;
+border: 1px solid #999;
+border-radius: 4px;
+background-color: #f5f5f5;
+cursor: pointer;
+}
+.blue{
+color:blue;
+}
+.p-text{
+ font-size: 1.8rem;
+}
+#actMsg{
+color:green;
+}
+
+.footer{
+background-color:pink;
+padding:5px;
+}
+
+#blog-posts{
+height:1000px;
+overflow-y:scroll;
+padding:5px;
+}
+.menu{
+background-color:pink;
+padding:10px;
+}
+{
+background-color:red;
+padding:10px;
+}
+.right-refresh{
+float:right;
+text-decoration:none;
+color:black;
+}
+</style>
+
+
+
+<div id="hmoda">
+<!-- Modal for Share -->
+<div id="shareModal" class="modal">
+
+  <div class="modal-content">
+  <b id="actMsg"></b>
+    <b  onclick="closeM()" class="close">&times;</b>
+   <p id="quote"></p>
+    <p id="shareLink"></p>
+
+  </div>
+</div>
+</div>
+
+<div class="menu">
+<i class="fa">365_Quotes </i>
+<i class="fa fa-blog"></i> |
+<i class="fa" id="date-today"></i>
+
+<a href="refreshing.html" class="fa fa-refresh right-refresh"></a>
+</div>
+<div id="blog-posts"></div>
+<center class="footer">
+<b class="fa">365</b>Quotes &copy;
+|
+<b class="fa" id="">2024</b>
+
+</center>
+<script type="text/javascript">
+  const currentDate = new Date().toISOString().split('T')[0]; 
+  document.getElementById('tittle').textContent ='365_Quotes'+' '+ currentDate;
+  document.getElementById('date-today').textContent = currentDate;
+// Function to copy text to clipboard
+function copyTextToClipboard(text) {
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+  textArea.className = "ndex";
+  document.body.appendChild(textArea);
+  textArea.select();
+  document.execCommand('copy');
+  document.getElementById('actMsg').textContent ='Copied To Clipboard'; 
+//  alert("copied");
+  document.body.removeChild(textArea);
+}
+
+</script>
+<script type="text/javascript">
+const host ='365-quotes.github.io/index.html?#';
+
+const sharingBtns ='<button onclick="copyTextToClipboard(shareLink.textContent)" class="reaction-btn"><i class="fa fa-copy"></i> Link</button><button onclick="copyTextToClipboard(quote.textContent)" class="reaction-btn"><i class="fa fa-copy"></i> Text</button>';
+
+document.addEventListener("DOMContentLoaded", function() {
+
+
+const blogPosts = document.getElementById('blog-posts');
+
+function createBlogPost(post) {
+  const div = document.createElement('div');
+  div.className = 'blog-post';
+  div.id = post.date;
+  const postHeader = document.createElement('div');
+  postHeader.className = 'post-header';
+  //avatar  
+  const authorAvatar = document.createElement('img');
+  authorAvatar.className = 'author-avatar';
+  authorAvatar.src = './img/icon.png';
+  authorAvatar.alt = "365 Quotes Avatar";
+  //author
+  const authorName = document.createElement('h2');
+  authorName.className = 'author-name';
+  authorName.textContent = '365_Quotes';
+  const date = document.createElement('pre');
+  date.id = post.date + 'share';
+  date.textContent = post.date;
+  //post content  
+  const postContent = document.createElement('div');
+  postContent.className = 'post-content';
+  const postText = document.createElement('p');
+  postText.innerHTML = post.post;
+  postText.className ='p-text';
+  //reactions 
+  const reactions = document.createElement('div');
+  reactions.className = 'actions';
+  const shareBtn = document.createElement('button');
+  shareBtn.className = 'reaction-btn fa fa-share share-btn';
+  shareBtn.textContent = post.shares;
+  shareBtn.onclick = function() {
+  const modal = document.getElementById('shareModal');
+  const quote = document.getElementById('quote');
+  quote.id = 'quote';
+  quote.innerHTML = post.post;
+  const shareLink = document.getElementById('shareLink');
+   shareLink.innerHTML='<p>'+ '<b id="link" class="blue">'+host+ post.date +'</b>'+'</p>'+ sharingBtns;
+   modal.style.display = 'block';
+  };
+  const copyBtn = document.createElement('button');
+  const copyIcon = document.createElement('b');
+
+  copyBtn.className = 'reaction-btn fa fa-copy';
+  copyBtn.innerHTML = post.copies ;
+  copyBtn.onclick = function() {
+  quote.innerHTML = post.post;
+  copyTextToClipboard(quote.textContent);
+  copyBtn.classList.add('animated');
+  setTimeout(function() {
+  copyBtn.classList.remove('animated');
+  copyBtn.className = 'reaction-btn fa fa-clipboard';
+  copyBtn.textContent = 'Copied !';
+
+   }, 500); // timeout
+ 
+ }; 
+    
+    if (post.date <= currentDate) { //filter future posts
+  reactions.appendChild(shareBtn);
+  reactions.appendChild(copyBtn);
+
+    
+  postHeader.appendChild(authorAvatar);
+  postHeader.appendChild(authorName);
+  postHeader.appendChild(date);
+  
+  postContent.appendChild(postText);
+
+  div.appendChild(postHeader);
+  div.appendChild(postContent);
+  div.appendChild(reactions); 
+  
+  blogPosts.appendChild(div);
+
+}
+
+}
+
+posts.forEach(post => createBlogPost(post));
+});
+
+function closeM(){
+document.getElementById('shareModal').style.display ='none'; 
+document.getElementById('actMsg').textContent =''; 
+}
+</script>
+
+
+</html>
+
+<script src="https://vigrodeepsa.github.io/js/motivation-data.js"></script>
